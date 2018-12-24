@@ -10,6 +10,8 @@ TagManager:
   - BoxInStack
   - Spawner
   - Shake
+  - Music
+  - Sounds
   layers:
   - Default
   - TransparentFX

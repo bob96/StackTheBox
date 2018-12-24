@@ -6,11 +6,13 @@ public class MoveObject : MonoBehaviour {
 
     public static float speed;
     private GameController game;
-    public float minSpeed;
+    public static float minSpeed;
     [HideInInspector] public Rigidbody2D rb;
 
     private void Awake()
     {
+        
+
         GameObject gameControllerObject = GameObject.FindWithTag("GameController");
 
         if (gameControllerObject != null)

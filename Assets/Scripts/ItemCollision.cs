@@ -60,15 +60,16 @@ public class ItemCollision : MonoBehaviour {
             }
             //instatiate the bomb explosion
             Instantiate(explosions[0], transform.position, Quaternion.identity);
+            AudioManager.PlaySound("BombExplosion");
             shake.camShake();
-            FindObjectOfType<AudioManager>().Play("BombExplosion");
+
             game.UpdateScore(bombScoreValue);
         }
         if(other.tag == "BoxInStack" && gameObject.tag == "Bomb")
         {
             //Instantiate bomb explosion
-            FindObjectOfType<AudioManager>().Play("BombExplosion");
-            FindObjectOfType<AudioManager>().Play("GameOver");
+            AudioManager.PlaySound("BombExplosion");
+            AudioManager.PlaySound("GameOver");
             Instantiate(explosions[0], transform.position, Quaternion.identity);
             shake.camShake();
             Destroy(gameObject);
@@ -78,18 +79,19 @@ public class ItemCollision : MonoBehaviour {
         {
             Destroy(gameObject);
             //instantiate box exlosion 
-            FindObjectOfType<AudioManager>().Play("BoxExplosion");
-            FindObjectOfType<AudioManager>().Play("GameOver");
+            AudioManager.PlaySound("BoxExplosion");
+            AudioManager.PlaySound("GameOver");
             Instantiate(explosions[1], transform.position, Quaternion.identity);
             shake.camShake();
             game.GameOver();
         }
         if(other.tag == "BoxInStack" && gameObject.tag == "Box")
         {
+
             gameObject.transform.SetParent(GameController.stackHolder);
             gameObject.tag = "BoxInStack";
             //instantiate box collision explosion
-            FindObjectOfType<AudioManager>().Play("BoxExplosion");
+            AudioManager.PlaySound("BoxStack");
             shake.camShake();
             Instantiate(explosions[2], transform.position, Quaternion.identity);
         }
@@ -116,8 +118,7 @@ public class ItemCollision : MonoBehaviour {
                 MoveObject.speed = currentSpeed;
             }
             //Instantiate box explosion
-
-            FindObjectOfType<AudioManager>().Play("BoxExplosion");
+            AudioManager.PlaySound("BoxExplosion");
             Instantiate(explosions[1], transform.position, Quaternion.identity);
             shake.camShake();
             game.UpdateLevel();

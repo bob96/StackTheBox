@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour {
     public static bool nextLevel;
     public GameObject gameOverLayout;
     public GameObject pausePanel;
+    public float minSpeedTmp;
 
 
 
@@ -28,6 +29,8 @@ public class GameController : MonoBehaviour {
         LevelText.text = "1";
         score = 0;
         level = 1;
+        MoveObject.minSpeed = minSpeedTmp;
+        MoveObject.speed = MoveObject.minSpeed;
         stackHolder = stackH.transform;
         UpdateLevel();
         

@@ -1,27 +1,74 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Audio;
-using System;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour {
 
-    public Sounds[] soundsArray;
+    public static AudioClip boxExplosion, boxStack, BombExplosion, click, gameOver;
+    public AudioClip boxExplosionRc, boxStackRc, BombExplosionRc, clickRc, gameOverRc;
+    static AudioSource audioSrc;
+    static GameObject music;
+    static AudioSource musicSource;
 
-    private void Awake()
+    private void Start()
     {
-        foreach(Sounds s in soundsArray)
-        {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-        }
+        music = GameObject.FindGameObjectWithTag("Music");
+
+        musicSource = music.GetComponent<AudioSource>();
+
+        boxExplosion = boxExplosionRc;
+        boxStack = boxStackRc;
+        BombExplosion = BombExplosionRc;
+        click = clickRc;
+        gameOver = gameOverRc;
+
+        audioSrc = GetComponent<AudioSource>();
     }
 
-    public void Play(string name)
+    public static void PlaySound(string clip)
     {
-        Sounds s = Array.Find(soundsArray, sounds => sounds.name == name);
-        s.source.Play();
+        if (SpriteManager.soundOn)
+        {
+            switch (clip)
+            {
+                case "BoxExplosion":
+                    audioSrc.PlayOneShot(boxExplosion);
+                    break;
+                case "BoxStack":
+                    audioSrc.PlayOneShot(boxStack);
+                    break;
+                case "BombExplosion":
+                    audioSrc.PlayOneShot(BombExplosion);
+                    break;
+                case "Click":
+                    audioSrc.PlayOneShot(click);
+                    break;
+                case "GameOver":
+                    audioSrc.PlayOneShot(gameOver);
+                    break;
+            }
+        }
+        else
+            return;
+       
+    }
+
+    private void Update()
+    {
+        PlayMusic();
+    }
+
+    public static void PlayMusic()
+    {
+        if (SpriteManager.musicOn)
+        {
+            if(musicSource.volume == 0)
+            {
+                musicSource.volume = 0.5f;
+            }
+        }
+        else
+            musicSource.volume = 0;
     }
 }
